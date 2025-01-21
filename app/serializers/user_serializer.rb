@@ -3,5 +3,5 @@ class UserSerializer
 
   set_type :user
   set_id :id
-  attributes :name
+  attributes :first_name, :last_name, :email
 end

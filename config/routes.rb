@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index, :show]
+      resources :festivals, only: [:index, :show], param: :festival_id do
+        delete '/artist/:artist_id', to: 'attending_artist_festials#delete', as: :delete_attending_artist_festival
+      end
     end
   end
 end

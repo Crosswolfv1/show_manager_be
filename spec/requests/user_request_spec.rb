@@ -13,17 +13,17 @@ RSpec.describe "Users", type: :request do
     @artist2 = AttendingArtist.create!({ name: Faker::Music.band })
 
     AttendingArtistFestival.create!([
-      { attending_artist: @artist1.id, festival: @festival1.id },
-      { attending_artist: @artist2.id, festival: @festival1.id },
-      { attending_artist: @artist2.id, festival: @festival2.id }
+      { attending_artist: @artist1, festival: @festival1 },
+      { attending_artist: @artist2, festival: @festival1 },
+      { attending_artist: @artist2, festival: @festival2 }
     ])
 
     UserFestival.create!([
-      { user: @user1.id, festival: @festival1.id },
-      { user: @user2.id, festival: @festival1.id },
-      { user: @user3.id, festival: @festival1.id },
-      { user: @user1.id, festival: @festival2.id },
-      { user: @user2.id, festival: @festival2.id }
+      { user: @user1, festival: @festival1 },
+      { user: @user2, festival: @festival1 },
+      { user: @user3, festival: @festival1 },
+      { user: @user1, festival: @festival2 },
+      { user: @user2, festival: @festival2 }
     ])  
   end
 
@@ -46,10 +46,9 @@ RSpec.describe "Users", type: :request do
       expect(response).to be_successful
       json = JSON.parse(response.body, symbolize_names: true)
 
-      expect(json[:data].count).to eq(1)
-      expect(json[:data][:attributes][:first_name]).to be(@user1.first_name)
-      expect(json[:data][:attributes][:last_name]).to be(@user1.last_name)
-      expect(json[:data][:attributes][:email]).to be(@user1.email)
+      expect(json[:data][:attributes][:first_name]).to eq(@user1.first_name)
+      expect(json[:data][:attributes][:last_name]).to eq(@user1.last_name)
+      expect(json[:data][:attributes][:email]).to eq(@user1.email)
     end
   end
 end

@@ -12,7 +12,7 @@
 
 # Create users
 users = User.create!([
-  { "name": "Alice" },
+  { name: "Alice" },
   { name: "Bob" },
   { name: "Charlie" },
   { name: "Dana" }

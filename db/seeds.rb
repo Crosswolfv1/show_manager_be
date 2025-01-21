@@ -12,12 +12,11 @@
 
 # Create users
 users = User.create!([
-  { name: "Alice" },
-  { name: "Bob" },
-  { name: "Charlie" },
-  { name: "Dana" }
+  { first_name: "Alice", last_name: "Smith", email: "alice.smith@example.com" },
+  { first_name: "Bob", last_name: "Johnson", email: "bob.johnson@example.com" },
+  { first_name: "Charlie", last_name: "Williams", email: "charlie.williams@example.com" },
+  { first_name: "Dana", last_name: "Brown", email: "dana.brown@example.com" }
 ])
-
 
 # Create artists
 artists = AttendingArtist.create!([
@@ -33,11 +32,11 @@ artists = AttendingArtist.create!([
   { name: "Thunder Chords" }
 ])
 
-# Create festivals
+# Create festivals with locations
 festivals = Festival.create!([
-  { name: "Rockin' Valley Fest", start_time: Time.now + 1.day, end_time: Time.now + 2.days },
-  { name: "Summer Jam Blast", start_time: Time.now + 3.days, end_time: Time.now + 4.days },
-  { name: "Echo Mountain Music Fest", start_time: Time.now + 5.days, end_time: Time.now + 6.days }
+  { name: "Rockin' Valley Fest", start_time: Time.now + 1.day, end_time: Time.now + 2.days, location: "Valley Park, New York" },
+  { name: "Summer Jam Blast", start_time: Time.now + 3.days, end_time: Time.now + 4.days, location: "Central Beach, Los Angeles" },
+  { name: "Echo Mountain Music Fest", start_time: Time.now + 5.days, end_time: Time.now + 6.days, location: "Echo Mountain, Colorado" }
 ])
 
 # Assign artists to festivals
@@ -64,4 +63,3 @@ UserFestival.create!([
   { user: users[1], festival: festivals[1] },
   { user: users[3], festival: festivals[1] }
 ])
-

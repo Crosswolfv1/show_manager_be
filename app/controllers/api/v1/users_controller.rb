@@ -3,11 +3,12 @@ class Api::V1::UsersController < ApplicationController
     users = User.all
     options = {}
     options[:meta] = {total: users.count}
-    render json: UserSerializer.new(users, options).serializable_hash
+    render json: UserSerializer.new(users, options)
   end
 
   def show
-
+    user = User.find_by(id: params[:id])
+    render json: UserSerializer.new(user)
   end
 
   def create

@@ -2,10 +2,12 @@ class Api::V1::AttendingArtistFestivalsController < ApplicationController
   rescue_from ArgumentError, with: :invalid_parameters
 
   def delete
-    entry = AttendingArtistFestival.find(festival_id: Festival.find(params(:festival_id)).id, attending_artist_id: AttendingArtist.find(params(:artist_id)).id)
+    entry = AttendingArtistFestival.find_by(
+      festival_id: params[:festival_id], 
+      attending_artist_id: params[:artist_id]
+    )
+    AttendingArtistFestival.delete(entry.id)
   end
-
-
 
   private
   

@@ -52,4 +52,5 @@ end
 
 group :test do
   gem "simplecov"
+  gem 'faker'
 end

@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  rescue_from ArgumentError, with: :invalid_parameters
+
   def index
     users = User.all
     options = {}
@@ -11,28 +13,9 @@ class Api::V1::UsersController < ApplicationController
     render json: UserSerializer.new(user)
   end
 
-  def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:success] = "User successfully created"
-      redirect_to @user
-    else
-      flash[:error] = "Something went wrong"
-      render 'new'
-    end
-  end
-
-  def update
-    if @user.update_attributes(params[:user])
-      flash[:success] = "User was successfully updated"
-      redirect_to @user
-    else
-      flash[:error] = "Something went wrong"
-      render 'edit'
-    end
-  end
-
   private
 
-
+  def invalid_parameters(exception)
+    render json: ErrorSerializer.format_error(ErrorMessage.new(exception, 404)), status: :not_found
+  end
 end

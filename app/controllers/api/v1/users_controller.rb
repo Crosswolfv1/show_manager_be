@@ -1,7 +1,9 @@
-class UsersController < ApplicationController
-
+class Api::V1::UsersController < ApplicationController
   def index
-    @users = User.all
+    users = User.all
+    options = {}
+    options[:meta] = {total: users.count}
+    render json: UserSerializer.new(users, options).serializable_hash
   end
 
   def show

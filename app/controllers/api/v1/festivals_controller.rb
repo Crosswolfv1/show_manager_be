@@ -1,5 +1,4 @@
-class FestivalsController < ApplicationController
-
+class Api::V1::FestivalsController < ApplicationController
   def index
     @festivals = Festival.all
   end

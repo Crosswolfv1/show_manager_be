@@ -10,6 +10,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
+    raise ArgumentError, "User not found" unless user
     options = {}
     options[:include] = [:festivals]
     render json: UserSerializer.new(user, options)
@@ -18,6 +19,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def invalid_parameters(exception)
-    render json: ErrorSerializer.format_error(ErrorMessage.new(exception, 404)), status: :not_found
+    render json: ErrorSerializer.format_error(exception, 404), status: :not_found
   end
 end

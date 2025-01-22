@@ -5,14 +5,14 @@ class Api::V1::FestivalsController < ApplicationController
     festivals = Festival.includes(:attending_artists)
     options = {}
     options[:meta] = {total: festivals.count}
-    options[:include] = [:attending_artists]
+    options[:include] = [:attending_artists, :users]
     render json: FestivalSerializer.new(festivals, options)
   end
   
   def show
     festival = Festival.find_by(id: params[:id])
     options = {}
-    options[:include] = [:attending_artists]
+    options[:include] = [:attending_artists, :users]
     render json: FestivalSerializer.new(festival, options)
   end
 

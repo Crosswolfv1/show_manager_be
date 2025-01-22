@@ -10,7 +10,9 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    render json: UserSerializer.new(user)
+    options = {}
+    options[:include] = [:festivals]
+    render json: UserSerializer.new(user, options)
   end
 
   private

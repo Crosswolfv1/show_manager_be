@@ -7,4 +7,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index, :show]
+      resources :festivals, only: [:index, :show], param: :id do
+        delete '/artist/:artist_id', to: 'attending_artist_festivals#delete', as: :delete_attending_artist_festival
+      end
+    end
+  end
 end

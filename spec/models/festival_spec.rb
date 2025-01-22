@@ -10,6 +10,9 @@ RSpec.describe Festival, type: :model do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
+    it {should validate_presence_of(:name)}
+    it {should validate_presence_of(:location)}
+    it {should validate_presence_of(:start_time)}
+    it {should validate_presence_of(:end_time)}
   end
 end

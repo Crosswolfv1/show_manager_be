@@ -8,4 +8,6 @@ class Festival < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :location, presence: true
+  validates :imageURL, presence: true
+
 end

@@ -34,9 +34,9 @@ artists = AttendingArtist.create!([
 
 # Create festivals with locations
 festivals = Festival.create!([
-  { name: "Rockin' Valley Fest", start_time: Time.now + 1.day, end_time: Time.now + 2.days, location: "Valley Park, New York" },
-  { name: "Summer Jam Blast", start_time: Time.now + 3.days, end_time: Time.now + 4.days, location: "Central Beach, Los Angeles" },
-  { name: "Echo Mountain Music Fest", start_time: Time.now + 5.days, end_time: Time.now + 6.days, location: "Echo Mountain, Colorado" }
+  { name: "Rockin' Valley Fest", start_time: Time.now + 1.day, end_time: Time.now + 2.days, location: "Valley Park, New York", imageURL: "https://i.imgur.com/4TvsNzy.gif" },
+  { name: "Summer Jam Blast", start_time: Time.now + 3.days, end_time: Time.now + 4.days, location: "Central Beach, Los Angeles", imageURL: "https://i.imgur.com/3GUX00f.jpeg" },
+  { name: "Echo Mountain Music Fest", start_time: Time.now + 5.days, end_time: Time.now + 6.days, location: "Echo Mountain, Colorado", imageURL: "https://i.imgur.com/KqW9LQZ.jpeg" }
 ])
 
 # Assign artists to festivals

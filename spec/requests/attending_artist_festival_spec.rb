@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :request do
+RSpec.describe "Festivals", type: :request do
   before(:each) do 
     @user1 = User.create!({ first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email: Faker::Internet.email })
     @user2 = User.create!({ first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email: Faker::Internet.email })
@@ -28,45 +28,43 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "CRUD" do
-    it "#index" do
-      get "/api/v1/users"
+    it "deletes a show/artist from a festival" do
+      delete "/api/v1/festivals/#{@festival1.id}/artist/#{@artist2.id}"
 
       expect(response).to be_successful
-      json = JSON.parse(response.body, symbolize_names: true)
-
-      expect(json[:data].count).to eq(3)
-      expect(json[:data][0][:attributes]).to have_key(:first_name)
-      expect(json[:data][1][:attributes]).to have_key(:last_name)
-      expect(json[:data][2][:attributes]).to have_key(:email)
+      expect(response.status).to eq(204)
     end
 
-    it "#show" do
-      get "/api/v1/users/#{@user1.id}"
-
-      expect(response).to be_successful
-      json = JSON.parse(response.body, symbolize_names: true)
-      expect(json[:data][:attributes][:first_name]).to eq(@user1.first_name)
-      expect(json[:data][:attributes][:last_name]).to eq(@user1.last_name)
-      expect(json[:data][:attributes][:email]).to eq(@user1.email)
-      expect(json[:data][:relationships][:festivals][:data].count).to eq(2)
-      expect(json[:data][:relationships][:festivals][:data][0][:id]).to eq(@festival1.id.to_s)
-
-      expect(json[:included].count).to eq(2)
-      expect(json[:included][0][:id]).to eq(@festival1.id.to_s)
-      expect(json[:included][0][:attributes][:name]).to eq(@festival1.name)
-      expect(json[:included][0][:attributes][:location]).to eq(@festival1.location)
-      expect(json[:included][0][:attributes][:start_time]).to eq(@festival1.start_time.iso8601)
-      expect(json[:included][0][:attributes][:end_time]).to eq(@festival1.end_time.iso8601)
-      expect(json[:included][0][:attributes][:imageURL]).to eq(@festival1.imageURL)
-    end
-
-    it "sad path show" do
-      get "/api/v1/users/99999999"
+    it "sad path, cannot find a festival" do
+      delete "/api/v1/festivals/9999999999/artist/#{@artist2.id}"
 
       expect(response).not_to be_successful
       json = JSON.parse(response.body, symbolize_names: true)
-      expect(json[:message]).to eq("User not found")
+
+      expect(json[:message]).to eq("Couldn't find Festival with 'id'=9999999999")
       expect(json[:status]).to eq(404)
     end
+
+    it "sad path, cannot find an artist" do
+      delete "/api/v1/festivals/#{@festival1.id}/artist/999999999999"
+
+      expect(response).not_to be_successful
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(json[:message]).to eq("Couldn't find AttendingArtist with 'id'=999999999999")
+      expect(json[:status]).to eq(404)
+    end
+
+    it "sad path, cannot find an joins entry" do
+      delete "/api/v1/festivals/#{@festival2.id}/artist/#{@artist1.id}"
+
+      expect(response).not_to be_successful
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(json[:message]).to eq("Artist not found at this festival")
+      expect(json[:status]).to eq(404)
+    end
+
   end
+
 end

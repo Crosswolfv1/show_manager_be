@@ -11,6 +11,7 @@ class Api::V1::FestivalsController < ApplicationController
   
   def show
     festival = Festival.find_by(id: params[:id])
+    raise ArgumentError, "Festival not found" unless festival
     options = {}
     options[:include] = [:attending_artists, :users]
     render json: FestivalSerializer.new(festival, options)
@@ -24,6 +25,6 @@ class Api::V1::FestivalsController < ApplicationController
   private
 
   def invalid_parameters(exception)
-    render json: ErrorSerializer.format_error(ErrorMessage.new(exception, 404)), status: :not_found
+    render json: ErrorSerializer.format_error(exception, 404), status: :not_found
   end
 end

@@ -5,10 +5,9 @@ class FestivalSerializer
   set_id :id
   attributes :name, :location, :start_time, :end_time
 
-  has_many :attending_artists, serializer: AttendingArtistSerializer
+  has_many :attending_artists
+  has_many :users
   
-private
-
   attribute :start_time do |attr|
     attr.start_time.strftime("%Y-%m-%dT%H:%M:%SZ")
   end

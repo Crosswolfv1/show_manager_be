@@ -3,7 +3,7 @@ class FestivalSerializer
 
   set_type :festival
   set_id :id
-  attributes :name, :location, :start_time, :end_time
+  attributes :name, :location, :start_time, :end_time, :imageURL
 
   has_many :attending_artists
   has_many :users

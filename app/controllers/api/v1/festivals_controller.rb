@@ -17,11 +17,6 @@ class Api::V1::FestivalsController < ApplicationController
     render json: FestivalSerializer.new(festival, options)
   end
 
-  def create
-  end
-
-
-
   private
 
   def invalid_parameters(exception)

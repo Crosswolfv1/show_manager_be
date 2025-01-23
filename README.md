@@ -62,7 +62,7 @@ To run this application locally:
 ## Endpoints
 
 ### 1. Get All Festival Schedules
-**GET** `/api/v1/festivals`
+**GET** `/api/v1/festivals` optional `/festivalid` for single result
 - **Description:** Retrieves all available festival schedules.
 - **Response Example:**
   ```json
@@ -112,7 +112,7 @@ To run this application locally:
   ```
 
 ### 2. Get a User's Schedule
-**GET** `/api/v1/users/:id`
+**GET** `/api/v1/users` optional `/userid` for single result
 - **Description:** Retrieves a specific user's schedule, including associated shows and other users on the same schedule.
 - **Response Example:**
   ```json
@@ -187,7 +187,12 @@ To run this application locally:
 ### 3. Remove a Show from a Festival
 **DELETE** `/api/v1/festivals/:festival_id/artist/artist_id`
 - **Description:** Removes a specific show from a festival's schedule.
-
+- **Response Example**
+```json
+{
+    "message": "Artist successfully removed from festival"
+}
+```
 ## Database Structure
 The application uses the following data model:
 

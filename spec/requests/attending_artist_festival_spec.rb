@@ -32,7 +32,9 @@ RSpec.describe "Festivals", type: :request do
       delete "/api/v1/festivals/#{@festival1.id}/artist/#{@artist2.id}"
 
       expect(response).to be_successful
-      expect(response.status).to eq(204)
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(json[:message]).to eq("Artist successfully removed from festival")
+      expect(response.status).to eq(202)
     end
 
     it "sad path, cannot find a festival" do

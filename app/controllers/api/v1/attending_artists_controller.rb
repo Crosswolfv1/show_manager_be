@@ -5,12 +5,6 @@ class Api::V1::AttendingArtistsController < ApplicationController
     @artists = AttendingArtist.all
   end
 
-  def show
-  end
-
-  def create
-  end
-
   private
 
   def invalid_parameters(exception)

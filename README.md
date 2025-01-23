@@ -1,5 +1,5 @@
 # Show Manager Backend
-
+*[Frontend located here](https://github.com/Crosswolfv1/show_manager_fe)*
 This repository contains the backend API for the Show Manager application. It is a Ruby on Rails application designed to manage festival schedules, user-specific schedules, and associated shows. The API provides endpoints for retrieving and managing data relevant to music festival scheduling.
 
 ## Table of Contents

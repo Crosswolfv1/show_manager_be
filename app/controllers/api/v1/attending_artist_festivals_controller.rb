@@ -10,6 +10,7 @@ class Api::V1::AttendingArtistFestivalsController < ApplicationController
     )
     raise ArgumentError, "Artist not found at this festival" unless entry
     AttendingArtistFestival.delete(entry.id)
+    render json: { message: "Artist successfully removed from festival" }, status: :accepted
   end
 
   private

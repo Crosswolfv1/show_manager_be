@@ -15,5 +15,15 @@ class FestivalSerializer
   attribute :end_time do |attr|
     attr.end_time.strftime("%Y-%m-%dT%H:%M:%SZ")
   end
- 
+
+  attribute :attending_artists_with_times do |festival|
+    festival.attending_artists.map do |artist|
+      attending_artist_festival = AttendingArtistFestival.find_by(festival_id: festival.id, attending_artist_id: artist.id)
+      {
+        artist_name: artist.name,
+        start_time: attending_artist_festival.start_time.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        end_time: attending_artist_festival.end_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+      }
+    end
+  end
 end

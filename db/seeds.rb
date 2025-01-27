@@ -10,7 +10,6 @@
 
 # db/seeds.rb
 
-# Create users and store the ActiveRecord objects
 users = [
   { first_name: "Alice", last_name: "Smith", email: "alice.smith@example.com" },
   { first_name: "Bob", last_name: "Johnson", email: "bob.johnson@example.com" },
@@ -18,7 +17,6 @@ users = [
   { first_name: "Dana", last_name: "Brown", email: "dana.brown@example.com" }
 ].map { |user| User.find_or_create_by!(user) }
 
-# Create artists and store the ActiveRecord objects
 artists = [
   { name: "The Rolling Beats" },
   { name: "Electric Sunrise" },
@@ -32,7 +30,6 @@ artists = [
   { name: "Thunder Chords" }
 ].map { |artist| AttendingArtist.find_or_create_by!(artist) }
 
-# Create festivals with locations and store the ActiveRecord objects
 festivals = [
   { name: "Rockin' Valley Fest", start_time: Time.now + 1.day, end_time: Time.now + 2.days, location: "Valley Park, New York", imageURL: "https://i.imgur.com/4TvsNzy.gif" },
   { name: "Summer Jam Blast", start_time: Time.now + 3.days, end_time: Time.now + 4.days, location: "Central Beach, Los Angeles", imageURL: "https://i.imgur.com/3GUX00f.jpeg" },
@@ -49,22 +46,20 @@ festivals = [
   { name: "City Lights Music Fest", start_time: Time.now + 25.days, end_time: Time.now + 26.days, location: "Downtown Square, Boston", imageURL: "https://i.imgur.com/AZutsbU.png" }
 ].map { |festival| Festival.find_or_create_by!(festival) }
 
-# Assign artists to festivals
 attending_artist_festivals = [
-  { attending_artist_id: artists[0].id, festival_id: festivals[0].id },
-  { attending_artist_id: artists[1].id, festival_id: festivals[0].id },
-  { attending_artist_id: artists[2].id, festival_id: festivals[1].id },
-  { attending_artist_id: artists[3].id, festival_id: festivals[1].id },
-  { attending_artist_id: artists[4].id, festival_id: festivals[2].id },
-  { attending_artist_id: artists[5].id, festival_id: festivals[2].id },
-  { attending_artist_id: artists[6].id, festival_id: festivals[0].id },
-  { attending_artist_id: artists[7].id, festival_id: festivals[1].id },
-  { attending_artist_id: artists[8].id, festival_id: festivals[2].id },
-  { attending_artist_id: artists[9].id, festival_id: festivals[0].id }
+  { attending_artist_id: artists[0].id, festival_id: festivals[0].id, start_time: festivals[0].start_time + 1.hour, end_time: festivals[0].start_time + 2.hours },
+  { attending_artist_id: artists[1].id, festival_id: festivals[0].id, start_time: festivals[0].start_time + 2.hours, end_time: festivals[0].start_time + 3.hours },
+  { attending_artist_id: artists[2].id, festival_id: festivals[1].id, start_time: festivals[1].start_time + 1.hour, end_time: festivals[1].start_time + 2.hours },
+  { attending_artist_id: artists[3].id, festival_id: festivals[1].id, start_time: festivals[1].start_time + 2.hours, end_time: festivals[1].start_time + 3.hours },
+  { attending_artist_id: artists[4].id, festival_id: festivals[2].id, start_time: festivals[2].start_time + 1.hour, end_time: festivals[2].start_time + 2.hours },
+  { attending_artist_id: artists[5].id, festival_id: festivals[2].id, start_time: festivals[2].start_time + 2.hours, end_time: festivals[2].start_time + 3.hours },
+  { attending_artist_id: artists[6].id, festival_id: festivals[0].id, start_time: festivals[0].start_time + 3.hours, end_time: festivals[0].start_time + 4.hours },
+  { attending_artist_id: artists[7].id, festival_id: festivals[1].id, start_time: festivals[1].start_time + 3.hours, end_time: festivals[1].start_time + 4.hours },
+  { attending_artist_id: artists[8].id, festival_id: festivals[2].id, start_time: festivals[2].start_time + 3.hours, end_time: festivals[2].start_time + 4.hours },
+  { attending_artist_id: artists[9].id, festival_id: festivals[0].id, start_time: festivals[0].start_time + 4.hours, end_time: festivals[0].start_time + 5.hours }
 ]
 attending_artist_festivals.each { |entry| AttendingArtistFestival.find_or_create_by!(entry) }
 
-# Assign users to festivals
 user_festivals = [
   { user_id: users[0].id, festival_id: festivals[0].id },
   { user_id: users[1].id, festival_id: festivals[0].id },
